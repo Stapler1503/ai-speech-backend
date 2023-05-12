@@ -34,10 +34,9 @@ export class ChatService implements OnModuleInit {
     );
   }
 
-  // public async transcribeAudioIntoText() {
-  //   const file = new File();
-  //   return await this.openai.createTranscription()
-  // }
+  public async transcribeAudioIntoText(audio: File) {
+    return await this.openai.createTranscription(audio, 'whisper-1');
+  }
 
   public async getModels() {
     return await this.openai.listModels();

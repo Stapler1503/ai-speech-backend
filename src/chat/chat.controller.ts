@@ -1,5 +1,6 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { ChatService } from './chat.service';
+import { response } from 'express';
 
 @Controller('chat')
 export class ChatController {
@@ -14,6 +15,13 @@ export class ChatController {
         return err;
         throw new Error(err);
       });
+  }
+
+  @Post('speech-recognize')
+  public async postSpeechRecognize(@Body() audioFile: File) {
+    return this.chatService
+      .transcribeAudioIntoText(audioFile)
+      .then((response) => response);
   }
 
   @Get('models')
