@@ -1,6 +1,7 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { Configuration, OpenAIApi } from 'openai';
 import { openaiApiKeyConst } from '../consts/openai-api-key.const';
+import * as fs from 'fs';
 
 @Injectable()
 export class ChatService implements OnModuleInit {
@@ -8,7 +9,7 @@ export class ChatService implements OnModuleInit {
 
   public onModuleInit(): void {
     const configuration = new Configuration({
-      apiKey: openaiApiKeyConst,
+      apiKey: openaiApiKeyConst
     });
     this.openai = new OpenAIApi(configuration);
   }
@@ -34,8 +35,8 @@ export class ChatService implements OnModuleInit {
     );
   }
 
-  public async transcribeAudioIntoText(audio: File) {
-    return await this.openai.createTranscription(audio, 'whisper-1');
+  public async transcribeAudioIntoText(file) {
+    return await this.openai.createTranscription(file, 'whisper-1');
   }
 
   public async getModels() {

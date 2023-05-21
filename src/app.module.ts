@@ -1,11 +1,16 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ChatController } from './chat/chat.controller';
 import { ChatModule } from './chat/chat.module';
+import { MulterModule } from '@nestjs/platform-express';
 
 @Module({
-  imports: [ChatModule],
+  imports: [
+    ChatModule,
+    MulterModule.register({
+      dest: './chat',
+    }),
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
